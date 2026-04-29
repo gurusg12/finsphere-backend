@@ -50,7 +50,7 @@ app.use("/api/transactions", require("./routes/transactions"));
 app.use("/api/settings", require("./routes/settings"));
 app.use("/api/reports", require("./routes/reports"));
 
-// Master data — exposed at multiple paths to mirror original Next API surface
+
 app.use("/api", require("./routes/master"));     // /api/groups, /api/account-types, /api/ledgers
 app.use("/api", require("./routes/agents"));     // /api/agents, /api/handovers
 
