@@ -26,9 +26,18 @@ app.use(cookieParser());
 app.use(
   cors({
     origin(origin, cb) {
-      // Allow same-origin / curl / server-to-server (no origin) and listed origins.
+      // Allow requests without origin (Postman, curl, mobile apps)
       if (!origin) return cb(null, true);
-      if (env.CORS_ORIGIN.includes("*") || env.CORS_ORIGIN.includes(origin)) return cb(null, true);
+
+      // Allow all origins ONLY if explicitly set (dev use only)
+      if (allowedOrigins.includes("*")) {
+        return cb(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return cb(null, true);
+      }
+
       return cb(new Error(`CORS: origin ${origin} not allowed`));
     },
     credentials: true,
